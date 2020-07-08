@@ -18,7 +18,7 @@ module.exports = {
         res.status(404).json({"error":{"message":`Loja não encontrada para o id: ${id}.`}});
     },
 
-    async store(req, res) {
+    async create(req, res) {
         const {name, description, address, city, uf} = req.body;
         const store = {name, description, address, city, uf};
         const trx = await knex.transaction();
