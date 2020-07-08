@@ -1,7 +1,9 @@
 const knex = require('../database/connection');
 
-const checkIfExists = async (id) => {
-    const store = await knex('stores').select('*').where({id});
+const checkIfExists = async (id, res) => {
+    const store = await knex('stores').select('*').where({id}).catch(_ => {
+        return res.status(400).json({"error":{"message":`Formato inválido de requisição: ${id}`}});
+    });
     return !!store.length;
 }
 
@@ -13,7 +15,9 @@ module.exports = {
 
     async show(req, res) {
         const {id} = req.params;
-        const store = await knex('stores').select('*').where({id});
+        const store = await knex('stores').select('*').where({id}).catch(_ => {
+            return res.status(400).json({"error":{"message":`Formato inválido de requisição: ${id}`}});
+        });
         return !!store.length ? res.json({store}) : 
         res.status(404).json({"error":{"message":`Loja não encontrada para o id: ${id}.`}});
     },
