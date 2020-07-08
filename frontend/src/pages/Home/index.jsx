@@ -16,7 +16,7 @@ const Home = () => {
                     Ajudamos pequenas empresas a cadastrarem e organizarem seus produtos e lojas.
                 </p>
 
-                <Link to="/create-point">
+                <Link to="/store">
                     <span>
                         <FiLogIn />
                     </span>
@@ -24,7 +24,7 @@ const Home = () => {
                         Gerencia sua lojas aqui
                     </strong>
                 </Link>
-                <Link to="/create-point">
+                <Link to="/">
                     <span>
                         <FiLogIn />
                     </span>
