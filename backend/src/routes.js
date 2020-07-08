@@ -1,20 +1,15 @@
 const { Router } = require('express');
+const swaggerRouter = require('./config/swagger');
 
-const StoreController = require('./controllers/StoreController');
-const ProductController = require('./controllers/ProductController');
+const storeRouter = require('./routes/StoreRoutes');
+const productRouter = require('./routes/ProductRoutes');
 
 const routes = Router();
 
-routes.get('/stores', StoreController.index);
-routes.get('/stores/:id', StoreController.show);
-routes.post('/stores', StoreController.create);
-routes.put('/stores/:id', StoreController.update);
-routes.delete('/stores/:id', StoreController.delete);
+routes.use('/api/stores', storeRouter);
+routes.use('/api/products', productRouter);
 
-routes.get('/products', ProductController.index);
-routes.get('/products/:id', ProductController.show);
-routes.post('/products', ProductController.create);
-routes.put('/products/:id', ProductController.update);
-routes.delete('/products/:id', ProductController.delete);
+
+routes.use('/api/docs', swaggerRouter);
 
 module.exports = routes;
