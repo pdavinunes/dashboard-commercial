@@ -15,7 +15,8 @@
   },
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "knex:migrate": "knex --knexfile knexfile.js migrate:latest"
   },
   "author": "",
   "license": "ISC"
