@@ -17,11 +17,11 @@ const options = {
       tags: [
         {
           name: 'stores',
-          description: 'Stocks API',
+          description: 'Stores API',
         },
         {
             name: 'products',
-            description: 'Stocks API',
+            description: 'Products API',
         },
       ],
       schemes: ['http'],

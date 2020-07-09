@@ -8,7 +8,7 @@ const ProductController = require('../controllers/ProductController');
  *   get:
  *     description: Retorna todas os produtos cadastrados
  *     tags:
- *       - Products
+ *       - products
  *     produces:
  *       - application/json
  *     responses:
@@ -25,7 +25,7 @@ productRoutes.get('/', ProductController.index);
  *   get:
  *     description: Retorna um único produto
  *     tags:
- *       - Products
+ *       - products
  *     produces:
  *       - application/json
  *     parameters:
@@ -53,7 +53,7 @@ productRoutes.get('/:id', ProductController.show);
  *   post:
  *     description: Cadastra um produto
  *     tags:
- *       - Products
+ *       - products
  *     produces:
  *       - application/json
  *     parameters:
@@ -78,7 +78,7 @@ productRoutes.post('/', ProductController.create);
  *   put:
  *     description: Atualiza um produto
  *     tags:
- *       - Products
+ *       - products
  *     produces:
  *       - application/json
  *     parameters:
@@ -111,7 +111,7 @@ productRoutes.put('/:id', ProductController.update);
  *   delete:
  *     description: Deleta um produto
  *     tags:
- *       - Products
+ *       - products
  *     produces:
  *       - application/json
  *     parameters:
