@@ -17,9 +17,15 @@ createdb dashboard # Cria o banco de dados localmente no Postgres
 git clone https://github.com/pdavinunes/dashboard-commercial.git # Clona o atual repositório na maquina
 cd backend/ # Entra na pasta do projeto backend
 ```
-Dentro do pasta ```backend``` tem um arquivo chamado ```.env.example``` retire o ".example" e coloque o usuário e senha (caso necessário) do banco.  
+Dentro do pasta ```backend``` tem um arquivo chamado ```.env.example``` retire o ".example" e coloque o usuário e senha (caso necessário) do banco, ou siga os dois passos abaixo.  
 
 ```bash
+mv .env.example .env # Renomeia o arquivo .env.example para .env
+nano .env # Informe o usuário e senha (caso necessário) do Postgres e salve o arquivo
+``` 
+Por fim, execute os comandos:
+
+```bash 
 npm i # Instala todos os pacotes do package.json 
 npm run knex:migrate # Cria as tabelas necessárias pro funcionamento da aplicação
 npm start # Inicia o servidor backend
