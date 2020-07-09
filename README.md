@@ -14,7 +14,7 @@ Primeiro, é necessário pré-configurar o ambiente, com os seguintes comando em
 
 ```bash
 createdb dashboard # Cria o banco de dados localmente no Postgres
-git clone <link.git> # Clona o atualmente repositório na maquina
+git clone https://github.com/pdavinunes/dashboard-commercial.git # Clona o atual repositório na maquina
 cd backend/ # Entra na pasta do projeto backend
 npm i # Instala todos os pacotes do package.json 
 npm run knex:migrate # Cria as tabelas necessárias pro funcionamento da aplicação
