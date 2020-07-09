@@ -21,7 +21,6 @@ module.exports = {
         const product = await knex.select(['products.*', {store_name: 'stores.name'}])
                 .from('products').innerJoin('stores','stores.id','products.store_id')
                     .where('products.id',id).catch(e => {
-                    console.log(e);
                 return res.status(400).json({"error":{"message":`Formato inválido de requisição: ${id}`}});
             });
         return !!product.length ? res.json({product}) : 

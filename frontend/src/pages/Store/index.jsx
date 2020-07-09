@@ -78,7 +78,7 @@ const Store = () => {
             city: city ? city : store.city,
             uf: uf ? uf : store.uf
         }
-        console.log(store);
+        
         storeService.update(store.id, newStore).then(resp => {
             console.log(resp)
         }).catch(e => {

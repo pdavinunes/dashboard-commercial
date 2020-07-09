@@ -80,7 +80,6 @@ const Product = () => {
 
     const handleSelectedStoreId = (event) => {
         const storeId = event.target.value;
-        console.log(storeId);
         setStoreId(storeId);
     }
 
