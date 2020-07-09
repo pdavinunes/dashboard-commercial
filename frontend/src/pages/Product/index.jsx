@@ -3,24 +3,23 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Table, Container, Row, Col, Button, Modal, Form} from 'react-bootstrap'
 import { Link, useHistory } from 'react-router-dom';
 import {FiEdit2, FiTrash2, FiArrowLeft, FiPlus} from 'react-icons/fi';
-import storeService from '../../services/storeService'
+import productService from '../../services/productService';
 
-const Store = () => {
+const Product = () => {
     const history = useHistory();
-    const [stores, setStores] = useState([])
+    const [products, setProducts] = useState([])
     const [show, setShow] = useState(false);
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [address, setAddress] = useState('');
-    const [city, setCity] = useState('');
-    const [uf, setUf] = useState('');
-    const [store, setStore] = useState('');
+    const [price, setPrice] = useState('');
+    const [comments, setComments] = useState('');
+    const [product, setProduct] = useState('');
     const [isUpdate, setIsUpdate] = useState(false);
 
     useEffect(() => {
-        storeService.index().then(resp => {
-            const currentStores = resp.data.stores;
-            setStores(currentStores);
+        productService.index().then(resp => {
+            const currentProducts = resp.data.products;
+            setProducts(currentProducts);
         });
     }, [])
 
@@ -30,7 +29,7 @@ const Store = () => {
     };
     const handleShow = () => setShow(true);
     const handleDelete = (id) => {
-        storeService.delete(id).then(resp => {
+        productService.delete(id).then(resp => {
             console.log(resp)
         }).catch(e => {
             console.log(e)
@@ -38,27 +37,26 @@ const Store = () => {
         history.go(0);
     }
 
-    const preUpdate = (store) => {
-        setStore(store);
+    const preUpdate = (product) => {
+        setProduct(product);
         setIsUpdate(true);
         handleShow();
     }
 
     const handleSubmit = () => {
-        const store = {
+        let product = {
             name,
             description,
-            address,
-            city,
-            uf
+            price,
         }
 
-        let validate = Object.values(store).filter(value => {
+        let validate = Object.values(product).filter(value => {
             return !!value
         })
 
-        if(validate.length === 5) {
-            storeService.create(store).then(resp => {
+        if(validate.length === 3) {
+            product = {...product, comments}
+            productService.create(product).then(resp => {
                 console.log(resp)
             }).catch(e => {
                 console.log(e)
@@ -71,15 +69,14 @@ const Store = () => {
     }
 
     const handleUpdate = () => {
-        const newStore = {
-            name: name ? name : store.name,
-            description: description ? description : store.description,
-            address: address ? address : store.address,
-            city: city ? city : store.city,
-            uf: uf ? uf : store.uf
+        const newProduct = {
+            name: name ? name : product.name,
+            description: description ? description : product.description,
+            price: price ? price : product.price,
+            comments: comments ? comments : product.comments,
         }
-        console.log(store);
-        storeService.update(store.id, newStore).then(resp => {
+        
+        productService.update(product.id, newProduct).then(resp => {
             console.log(resp)
         }).catch(e => {
             console.log(e)
@@ -92,19 +89,19 @@ const Store = () => {
         <>
         <br/>
         <Container>
-        <Row>
+            <Row>
             <Col md={1}>
                 <Link to="/">
                     <FiArrowLeft size={36}/>
                 </Link>
             </Col>
             <Col md={8}>
-                <h2>Lista de Lojas</h2>
+                <h2>Lista de Produtos</h2>
             </Col>
             <Col md={1}>
-                <Link to="/products">
+                <Link to="/stores">
                     <Button variant="link" onClick={handleShow}>
-                        Produtos
+                        Lojas
                     </Button>
                 </Link>
             </Col>
@@ -121,23 +118,23 @@ const Store = () => {
                 <tr>
                 <th>Nome</th>
                 <th>Descrição</th>
-                <th>Endereço</th>
-                <th>Cidade</th>
+                <th>Preço</th>
+                <th>Observações</th>
                 <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
                 {
-                    stores.map(store => {
+                    products.map(product => {
                         return (
-                        <tr key={store.id}>
-                            <td>{store.name}</td>
-                            <td>{store.description}</td>
-                            <td>{store.address}</td>
-                            <td>{store.city}/{store.uf}</td>
+                        <tr key={product.id}>
+                            <td>{product.name}</td>
+                            <td>{product.description}</td>
+                            <td>R$ {product.price}</td>
+                            <td>{product.comments}</td>
                             <td>
-                                <Button className="mr-2" onClick={() => preUpdate(store)} variant="warning"><FiEdit2/></Button>
-                                <Button variant="danger" onClick={() => handleDelete(store.id)}><FiTrash2/></Button>
+                                <Button className="mr-2" onClick={() => preUpdate(product)} variant="warning"><FiEdit2/></Button>
+                                <Button variant="danger" onClick={() => handleDelete(product.id)}><FiTrash2/></Button>
                             </td>
                         </tr>
                         )
@@ -150,37 +147,29 @@ const Store = () => {
 
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-            <Modal.Title>{isUpdate ? 'Atualização' : 'Cadastro'} de Loja</Modal.Title>
+            <Modal.Title>{isUpdate ? 'Atualização' : 'Cadastro'} de Produto</Modal.Title>
             </Modal.Header>
             <Modal.Body>
             <Form>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Nome</Form.Label>
-                    <Form.Control placeholder={isUpdate ? store.name : 'Digite o nome da Loja'} onChange={e => setName(e.target.value)} type="text" />
+                    <Form.Control placeholder={isUpdate ? product.name : 'Digite o nome do Produto'} onChange={e => setName(e.target.value)} type="text" />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label>Descrição</Form.Label>
-                    <Form.Control placeholder={isUpdate ? store.description : 'Uma breve descrição'} onChange={e => setDescription(e.target.value)} type="text" />
+                    <Form.Control placeholder={isUpdate ? product.description : 'Uma breve descrição'} onChange={e => setDescription(e.target.value)} type="text" />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Endereço</Form.Label>
-                    <Form.Control  placeholder={isUpdate ? store.address : 'Ex: Rua X, 123'} onChange={e => setAddress(e.target.value)} type="text" />
+                    <Form.Label>Preço</Form.Label>
+                    <Form.Control  placeholder={isUpdate ? product.price : '10.00'} onChange={e => setPrice(e.target.value)} type="number" step={.01} />
                 </Form.Group>
-
-                <Form.Row>
-                    <Form.Group as={Col} controlId="formGridEmail">
-                    <Form.Label>Cidade</Form.Label>
-                    <Form.Control type="text" placeholder={isUpdate ? store.city : 'Digite Aqui'} onChange={e => setCity(e.target.value)} />
-                    </Form.Group>
-
-                    <Form.Group as={Col} controlId="formGridPassword">
-                    <Form.Label>UF</Form.Label>
-                    <Form.Control type="text" placeholder={isUpdate ? store.uf : 'Ex: CE'} onChange={e => setUf(e.target.value)} maxLength={2} />
-                    </Form.Group>
-                </Form.Row>
-
+                
+                <Form.Group controlId="formBasicPassword">
+                    <Form.Label>Observações</Form.Label>
+                    <Form.Control  placeholder={isUpdate ? product.comments : 'Obs: (Opcional)'} onChange={e => setComments(e.target.value)} type="text" />
+                </Form.Group>
 
                 </Form>
             </Modal.Body>
@@ -197,4 +186,4 @@ const Store = () => {
     )
 }
 
-export default Store;
+export default Product;

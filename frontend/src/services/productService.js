@@ -1,6 +1,6 @@
 import createService from "./genericService";
 
-const service = createService("/stores");
+const service = createService("/products");
 
 export default {
     index(){

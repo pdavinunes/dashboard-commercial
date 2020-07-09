@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles.css';
-import { FiLogIn } from 'react-icons/fi'
+import { FaStoreAlt, FaBoxes } from 'react-icons/fa'
 import { Link } from 'react-router-dom';
 
 
@@ -16,21 +16,21 @@ const Home = () => {
                     Ajudamos pequenas empresas a cadastrarem e organizarem seus produtos e lojas.
                 </p>
 
-                <Link to="/store">
+                <Link to="/stores">
                     <span>
-                        <FiLogIn />
+                        <FaStoreAlt />
                     </span>
                     <strong>
                         Gerencia sua lojas aqui
                     </strong>
                 </Link>
-                <Link to="/">
+                <Link to="/products">
                     <span>
-                        <FiLogIn />
+                        <FaBoxes />
                     </span>
                     <strong>
                         Gerencia seus produtos aqui
-            </strong>
+                    </strong>
                 </Link>
             </main>
         </div>
