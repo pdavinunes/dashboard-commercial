@@ -9,13 +9,19 @@ const checkIfExists = async (id, res) => {
 
 module.exports = {
     async index(req, res) {
-        const products = await knex('products').select('*');
-        return res.json({products}); 
+        knex.select(['products.*', {store_name: 'stores.name'}])
+            .from('products').innerJoin('stores','stores.id','products.store_id')
+            .then((products)=> {
+               return res.json({products})
+            })
     },
 
     async show(req, res) {
         const {id} = req.params;
-        const product = await knex('products').select('*').where({id}).catch(_ => {
+        const product = await knex.select(['products.*', {store_name: 'stores.name'}])
+                .from('products').innerJoin('stores','stores.id','products.store_id')
+                    .where('products.id',id).catch(e => {
+                    console.log(e);
                 return res.status(400).json({"error":{"message":`Formato inválido de requisição: ${id}`}});
             });
         return !!product.length ? res.json({product}) : 
@@ -23,8 +29,8 @@ module.exports = {
     },
 
     async create(req, res) {
-        const {name, description, price, comments} = req.body;
-        const product = {name, description, price, comments};
+        const {name, description, price, comments, store_id} = req.body;
+        const product = {name, description, price, comments, store_id};
         const trx = await knex.transaction();
         await trx('products').insert(product)
                 .then((resp) => {

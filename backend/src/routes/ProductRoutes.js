@@ -143,6 +143,7 @@ module.exports = productRoutes;
  *       - name
  *       - description
  *       - price
+ *       - store_id
  *     properties:
  *       id:
  *         type: number
@@ -153,6 +154,10 @@ module.exports = productRoutes;
  *       price:
  *          type: number
  *       comments:
+ *          type: string
+ *       store_id:
+ *          type: number
+ *       store_name:
  *          type: string
  *       created_at:
  *          type: number
@@ -165,6 +170,7 @@ module.exports = productRoutes;
  *       - name
  *       - description
  *       - price
+ *       - store_id
  *     properties:
  *       name:
  *         type: string
@@ -174,6 +180,8 @@ module.exports = productRoutes;
  *          type: number
  *       comments:
  *          type: string
+ *       store_id:
+ *          type: number
  *   Products:
  *     type: array
  *     items:

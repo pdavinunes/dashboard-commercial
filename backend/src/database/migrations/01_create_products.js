@@ -5,6 +5,10 @@ exports.up = async function(knex) {
         table.string('description').notNullable();
         table.float('price').notNullable();
         table.string('comments');
+        table.integer('store_id')
+            .notNullable()
+            .references('id')
+            .inTable('stores');
         table.timestamp('created_at').defaultTo(knex.fn.now());
         table.timestamp('updated_at').defaultTo(knex.fn.now());
     })
