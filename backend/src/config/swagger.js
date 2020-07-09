@@ -7,11 +7,11 @@ const swaggerRouter = express.Router();
 const options = {
     swaggerDefinition: {
       info: {
-        title: 'REST - Swagger',
+        title: 'Dashboard Commercial',
         version: '1.0.0',
-        description: 'REST API with Swagger doc',
+        description: 'Documentação da REST API com Swagger',
         contact: {
-          email: 'contact@danielpecos.com',
+          email: 'p.davi.nunes@gmail.com',
         },
       },
       tags: [

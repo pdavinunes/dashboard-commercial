@@ -62,7 +62,7 @@ storeRoutes.get('/:id', StoreController.show);
  *         in: body
  *         required: true
  *         schema:
- *           $ref: '#/definitions/StorePost'
+ *           $ref: '#/definitions/StoreValidToSend'
  *     responses:
  *       201:
  *         description: Created.
@@ -92,7 +92,7 @@ storeRoutes.post('/', StoreController.create);
  *         in: body
  *         required: false
  *         schema:
- *           $ref: '#/definitions/StorePost'
+ *           $ref: '#/definitions/StoreValidToSend'
  *     responses:
  *       400:
  *         description: Bad request. O ID de uma loja deve ser um inteiro maior que 0.
@@ -162,7 +162,7 @@ module.exports = storeRoutes;
  *          type: number
  *       updated_at:
  *          type: number
- *   StorePost:
+ *   StoreValidToSend:
  *     type: object
  *     required:
  *       - name

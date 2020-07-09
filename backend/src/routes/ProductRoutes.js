@@ -62,7 +62,7 @@ productRoutes.get('/:id', ProductController.show);
  *         in: body
  *         required: true
  *         schema:
- *           $ref: '#/definitions/ProductPost'
+ *           $ref: '#/definitions/ProductValidToSend'
  *     responses:
  *       201:
  *         description: Created.
@@ -92,7 +92,7 @@ productRoutes.post('/', ProductController.create);
  *         in: body
  *         required: true
  *         schema:
- *             $ref: '#/definitions/ProductPost'
+ *             $ref: '#/definitions/ProductValidToSend'
  *     responses:
  *       400:
  *         description: Bad request. O ID de um produto deve ser um inteiro maior que 0.
@@ -158,7 +158,7 @@ module.exports = productRoutes;
  *          type: number
  *       updated_at:
  *          type: number
- *   ProductPost:
+ *   ProductValidToSend:
  *     type: object
  *     required:
  *       - id
